@@ -1,4 +1,4 @@
-package aereo.rocks.base.wallpaper;
+package rocks.aereo.base.wallpaper;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package aereo.rocks.base;
+package rocks.aereo.base;
 
 import java.util.Timer;
 

@@ -1,7 +1,7 @@
-package aereo.rocks.base;
+package rocks.aereo.base;
 
-import aereo.rocks.base.reader.JSONReader;
-import aereo.rocks.base.wallpaper.WallpaperChanger;
+import rocks.aereo.base.reader.JSONReader;
+import rocks.aereo.base.wallpaper.WallpaperChanger;
 
 import java.util.TimerTask;
 

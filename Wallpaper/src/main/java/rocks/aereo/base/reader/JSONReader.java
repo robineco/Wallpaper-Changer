@@ -1,4 +1,4 @@
-package aereo.rocks.base.reader;
+package rocks.aereo.base.reader;
 
 import org.json.JSONObject;
 
