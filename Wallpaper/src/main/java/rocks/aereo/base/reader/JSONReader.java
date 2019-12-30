@@ -1,5 +1,6 @@
 package rocks.aereo.base.reader;
 
+import lombok.extern.java.Log;
 import org.json.JSONObject;
 
 import java.io.*;
@@ -7,7 +8,9 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.logging.Logger;
 
+@Log
 public class JSONReader {
 
     String baseUrl = "https://www.bing.com";
@@ -19,6 +22,7 @@ public class JSONReader {
         String urlToImage = result.getJSONArray("images").getJSONObject(0).get("url").toString();
 
         try(InputStream in = new URL(baseUrl + urlToImage).openStream()){
+            log.info("downloading picture...");
             if (Files.exists(Paths.get(path))) {
                 Files.delete(Paths.get(path));
                 Files.copy(in, Paths.get(path));
@@ -26,7 +30,7 @@ public class JSONReader {
                 Files.copy(in, Paths.get(path));
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            log.warning(e.toString());
         }
     }
 
@@ -37,7 +41,7 @@ public class JSONReader {
             urlConnection.setRequestProperty(properties[0], properties[1]);
             return webPageToString(urlConnection.getInputStream());
         } catch (IOException e) {
-            e.printStackTrace();
+            log.warning(e.toString());
         }
         return "";
     }

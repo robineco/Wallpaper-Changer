@@ -1,7 +1,10 @@
 package rocks.aereo.base.wallpaper;
 
+import lombok.extern.java.Log;
+
 import java.io.IOException;
 
+@Log
 public class WallpaperChanger {
 
     private ProcessBuilder processBuilder = new ProcessBuilder();
@@ -12,11 +15,12 @@ public class WallpaperChanger {
     }
 
     public void changeWallpaper() {
+        log.info("changing wallpaper...");
         processBuilder.command("bash", "-c", command);
         try {
             Process process = processBuilder.start();
         } catch (IOException e) {
-            e.printStackTrace();
+            log.warning(e.toString());
         }
     }
 }
