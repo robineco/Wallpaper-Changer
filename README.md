@@ -1,7 +1,6 @@
 # Wallpaper-Of-The-Day
 
 Set "bing's image of the day" as your daily background image.
----
 
 ## Build With
 
