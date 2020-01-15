@@ -15,7 +15,7 @@ public class DailyTask extends TimerTask {
 
     public DailyTask(String path) {
         this.path = path;
-        reader = new JSONReader();
+        reader = new JSONReader(path);
         wallpaperChanger = new WallpaperChanger(path);
     }
 

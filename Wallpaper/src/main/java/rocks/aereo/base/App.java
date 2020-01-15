@@ -11,6 +11,6 @@ public class App {
         Timer timer = new Timer();
         DailyTask dailyTask = new DailyTask(args[0]);
         log.info("starting application...");
-        timer.scheduleAtFixedRate(dailyTask, 0 , 3600000);
+        timer.scheduleAtFixedRate(dailyTask, 0, 1800000);
     }
 }

@@ -3,25 +3,44 @@ package rocks.aereo.base.reader;
 import lombok.extern.java.Log;
 import org.json.JSONObject;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.logging.Logger;
 
 @Log
 public class JSONReader {
 
+    String url;
     String baseUrl = "https://www.bing.com";
     String param = "/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=de-DE";
     private static final String[] properties = {"User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11"};
 
-    public void saveImage(String path) {
-        JSONObject result = new JSONObject(setUpUrl());
-        String urlToImage = result.getJSONArray("images").getJSONObject(0).get("url").toString();
+    public JSONReader(String url) {
+        this.url = url;
+    }
 
-        try(InputStream in = new URL(baseUrl + urlToImage).openStream()){
+    public void saveImage(String path) {
+
+        String urlToImage = "";
+        try {
+            JSONObject result = new JSONObject(setUpUrl());
+            urlToImage = result.getJSONArray("images").getJSONObject(0).get("url").toString();
+        } catch (Exception e) {
+            log.info("retry in 15 min.");
+            try {
+                Thread.sleep(900000);
+                saveImage(url);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        try (InputStream in = new URL(baseUrl + urlToImage).openStream()) {
             log.info("downloading picture...");
             if (Files.exists(Paths.get(path))) {
                 Files.delete(Paths.get(path));
@@ -31,6 +50,7 @@ public class JSONReader {
             }
         } catch (IOException e) {
             log.warning(e.toString());
+
         }
     }
 
